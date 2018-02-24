@@ -11,7 +11,7 @@ const $ = require('gulp-load-plugins')({
 });
 
 gulp.task('build', function() {
-  $.remoteJson('http://craft-o-matic.test/testCandidate1/pageList').get(function(err, res, body) {
+  $.remoteJson('http://192.241.219.128/testCandidate1/pageList').get(function(err, res, body) {
     var urls = JSON.parse(body);
     for (let i = 0; i < urls.length; i++) {
       var pathname = $.urlParse(urls[i]).pathname;
