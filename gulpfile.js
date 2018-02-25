@@ -11,7 +11,8 @@ const $ = require('gulp-load-plugins')({
 });
 
 gulp.task('build', function() {
-  $.remoteJson('http://192.241.219.128/testCandidate1/pageList').get(function(err, res, body) {
+  var candidate = $.getenv('candidate');
+  $.remoteJson('http://192.241.219.128/'+candidate+'/pageList').get(function(err, res, body) {
     var urls = JSON.parse(body);
     for (let i = 0; i < urls.length; i++) {
       var pathname = $.urlParse(urls[i]).pathname;
@@ -21,7 +22,7 @@ gulp.task('build', function() {
       });
 
       $.request(urls[i])
-        .pipe($.replacestream('href="/testCandidate1/', 'href="/'))
+        .pipe($.replacestream('href="/'+candidate+'/', 'href="/'))
         .pipe($.fs.createWriteStream(filePath+'/index.html'));
     } 
   });
